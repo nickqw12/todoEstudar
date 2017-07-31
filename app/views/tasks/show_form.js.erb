@@ -1,0 +1,10 @@
+m = $('#modal');
+m.html('<%= j(render partial: 'task_form', locals: {task: @task}) %>');
+m.modal('show');
+$('#modal').integrateDatepicker();
+window.onclick = function(event) {
+  if ($(event.target).attr('class') == "modal-backdrop fade in") {
+    m.modal('hide');
+  }
+}
+

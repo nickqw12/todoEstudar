@@ -1,0 +1,17 @@
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+span.error {
+  color: #D8000C;
+  background-color: #FFBABA;
+  margin: 10px 10px;
+  padding:4px;
+  border-radius:2.0em;
+  border: 1px solid;
+  font-size:14px;
+  vertical-align:middle;
+  box-shadow:1px 1px 3px #888;
+}
+
+.modal form {
+  margin-bottom: 0;
+}

@@ -1,0 +1,45 @@
+<html>
+<head>
+  <title>Todo</title>
+  <%= stylesheet_link_tag    "application", media: "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <style>
+    .mdl-card {
+      width: 384px;
+      height: 512px;
+      padding-top: 50px;
+      padding-left: 50px;
+      margin-botton: 100px;
+      padding-botton: 50px;
+    }
+    .center-cust {
+      margin: auto;
+      width: 450px;
+      height: 550px;
+      padding: 50px;
+      margin-top: 160px;
+    }
+    .p {
+      padding-top: 50px;
+      margin-left: 100px;
+    }
+
+  </style>
+
+
+</head>
+<body class="mdl-color--light-green-100">
+<div >
+  <div class="row-fluid">
+    <div class="center-cust mdl-color--grey-50 mdl-shadow--4dp">
+
+      <%= yield %>
+    </div>
+    <div>
+      <span> </span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

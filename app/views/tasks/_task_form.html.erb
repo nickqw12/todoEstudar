@@ -1,0 +1,39 @@
+<style>
+  .demo-card-wide.mdl-card {
+    width: 512px;
+  }
+  .demo-card-wide > .mdl-card__title {
+    color: #fff;
+    height: 176px;
+    background: url('../assets/demos/welcome_card.jpg') center / cover;
+  }
+  .demo-card-wide > .mdl-card__menu {
+    color: #fff;
+  }
+  .my-button-modal {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 150px;
+    text-align: center;
+  }
+    .modal-body {
+      font-size: 18px;
+    }
+</style><div class="mdl-card__title-text">
+  <h1>
+    <%= task.new_record? ? 'New Task' : "Editing task: #{task.title}" %>
+  </h1>
+</div>
+<%= simple_form_for task, class: 'mdl-card__supporting-text', remote: true do |f| %>
+    <div class="modal-body">
+      <%= f.input :title , required: true%>
+      <%= f.input :note, as: :string%>
+      <%= f.input :due, as: :string, input_html: { class: 'datepicker', value: task.due.present? ? localize(task.dueto, format: '%d/%m/%Y') : nil } %>
+      <%= f.input :completed, as: :boolean %>
+    </div>
+    <div>
+      <%= f.submit 'Save', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--green-300 mdl-text-color--grey-100 my-button-modal' %>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-color--red-300 mdl-text-color--grey-100 my-button-modal" data-dismiss="modal" aria-hidden="true">Cancel</button>
+
+    </div>
+<% end %>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .center-cust {
+      margin: auto;
+      width: 800px;
+      height: 600px;
+      padding: 10px;
+      margin-top: 60px;
+    }
+    .modal-backdrop.fade {
+      opacity: 0;
+      filter: alpha(opacity=0);
+    }
+    .modal-backdrop.fade.in {
+      opacity: 0.10;
+      filter: alpha(opacity=10);
+    }
+    .my-button {
+      margin-right: 14px;
+    }
+
+    .my-sort {
+      margin-left: 18px;
+    }
+  </style>
+
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header mdl-color--green">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">Actions</span>
+
+      <% session[:sort_column] ||= "id"%>
+      <% session[:sort_direction] ||= true%>
+      <i class="material-icons my-sort">sort</i>
+      <%= link_to sort_tasks_path("title"), remote: true do %>
+          <button class="mdl-button mdl-js-button edit-button mdl-button--fab mdl-js-ripple-effect my-sort mdl-color--grey-200">
+            <i class="material-icons">text_format</i>
+          </button>
+      <% end %>
+      <%= link_to sort_tasks_path("due"), remote: true do %>
+          <button class="mdl-button mdl-js-button edit-button mdl-button--fab mdl-js-ripple-effect my-sort mdl-color--grey-200">
+            <i class="material-icons">event</i>
+          </button>
+      <% end %>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+      <nav class="mdl-navigation mdl-layout--large-screen-only mdl-color-text--grey-200">
+        <div class="mdl-list__item">
+        <span class="mdl-list__item-primary-content">
+          <span class="mdl-list__item-primary-content mdl-color-text--grey-200 ">
+            <i class="material-icons mdl-list__item-avatar">person</i>
+            <%= current_user.email.split("@").first %>
+          </span>
+        </span>
+        </div>
+        <%= link_to new_task_path, class: 'mdl-color-text--grey-200 my-button', remote: true  do %>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-color--grey-200 mdl-js-ripple-effect">
+              <i class="material-icons">add</i>
+            </button>
+            <div class="mdl-tooltip" data-mdl-for="tt1">New Task</div>
+        <% end %>
+        <%= link_to destroy_user_session_path, class: 'mdl-color-text--grey-200 my-button', method: :delete  do %>
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+              <i class="material-icons">power_settings_new</i>
+            </button>
+            <div class="mdl-tooltip" data-mdl-for="tt1">Log Out</div>
+        <% end %>
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Actions</span>
+    <nav class="mdl-navigation">
+      <div class="mdl-list__item">
+        <span class="mdl-list__item-primary-content">
+          <span class="mdl-list__item-primary-content mdl-color-text--grey-800">
+            <i class="material-icons mdl-list__item-avatar">person</i>
+            <%= current_user.email.split("@").first %>
+          </span>
+        </span>
+      </div>
+      <span class="mdl-list__item-primary-content mdl-color-text--grey-800">
+        <%= link_to 'Sort by Title', sort_tasks_path("title"), class: 'mdl-navigation__link mdl-color-text--grey-800', remote: true %>
+      </span>
+      <span class="mdl-list__item-primary-content mdl-color-text--grey-800">
+        <%= link_to 'Sort by Due Date', sort_tasks_path("due"), class: 'mdl-navigation__link mdl-color-text--grey-800', remote: true %>
+      </span>
+      <span class="mdl-list__item-primary-content mdl-color-text--grey-800">
+        <%= link_to 'New task', new_task_path, class: 'mdl-navigation__link mdl-color-text--grey-800', remote: true %>
+      </span>
+      <%= link_to 'Log Out', destroy_user_session_path, class: 'mdl-navigation__link mdl-color-text--grey-800', method: :delete %>
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+    <div class="page-content">
+      <div class="container" id="task-list">
+        <%= render partial: 'tasks/task_list', locals: {tasks: @tasks} %>
+      </div>
+    </div>
+  </main>
+</div>
+
+
+
+<%= yield %>
+
+<div class="modal fade center-cust mdl-color--grey-50 mdl-shadow--4dp" id="modal"></div>
